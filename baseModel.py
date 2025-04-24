@@ -55,3 +55,4 @@ if __name__ == "__main__":
     hide_message("test.png", message, directions=direction)  # Replace with your image path
     retrieved_message = retrieve_message("output_test.png")
     print("Retrieved Message:", retrieved_message)
+#hello 
