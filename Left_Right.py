@@ -6,9 +6,7 @@ def hide_message(image_path, message, directions):
     img = img.convert("RGBA")
     
     # Convert the message to binary
-    binary_message = ''.join(format(ord(char), '08b') for char in message) + '1111111111111110'  # End of message delimiter
-    
-    print(binary_message)
+    binary_message = ''.join(format(ord(char), '08b') for char in message) + '11111111'  # End of message delimiter
     # Hide the message in the least significant bits of the image
     data_index = 0
     pixels = img.load()
@@ -30,23 +28,20 @@ def hide_message(image_path, message, directions):
     img.save("output_test.png")
 
 # Function to retrieve a hidden message from an image
-def retrieve_message(image_path, direction):
+def retrieve_message(image_path):
     img = Image.open(image_path)
     binary_message = ""
     pixels = img.load()
     x=0
     y=0
 
-    for i in direction:
+    for i in range(0,8):
         r, g, b ,a= pixels[x, y]
         binary_message += str(r & 1)
-        if ord(i)&1 == 0:
+        if g&1 == 0:
             x+=1
         else :
             y+=1
-
-        
-    print(binary_message)
     # Convert binary message to characters
     message = ""
     for i in range(0, len(binary_message), 8):
@@ -60,5 +55,5 @@ if __name__ == "__main__":
     message = "M"
     direction = "01100110"
     hide_message("test.png", message, directions=direction)  # Replace with your image path
-    retrieved_message = retrieve_message("output_test.png", direction)
+    retrieved_message = retrieve_message("output_test.png")
     print("Retrieved Message:", retrieved_message)

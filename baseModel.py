@@ -1,16 +1,17 @@
 from PIL import Image
 
 # Function to hide a message in an image
-def hide_message(image_path, message, directions):
+def hide_message(image_path, message):
     img = Image.open(image_path)
     img = img.convert("RGBA")
     
     # Convert the message to binary
-    binary_message = ''.join(format(ord(char), '08b') for char in message) + '1111111111111110'  # End of message delimiter
+    binary_message = ''.join(format(ord(char), '08b') for char in message) + '11111111'  # End of message delimiter
     
     # Hide the message in the least significant bits of the image
     data_index = 0
     pixels = img.load()
+    print(img.size)
     for y in range(img.height):
         for x in range(img.width):
             if data_index < len(binary_message):
@@ -18,7 +19,6 @@ def hide_message(image_path, message, directions):
                 # Modify the least significant bit of the red channel
                 r = (r & ~1) | int(binary_message[data_index])
                 pixels[x, y] = (r, g, b,a)
-                print(f"Changing pixel at ({x}, {y}) to: ({r}, {g}, {b}, {a})")  # Print changed pixel info
                 data_index += 1
             else:
                 break
@@ -48,11 +48,7 @@ def retrieve_message(image_path):
 
 # Example usage
 if __name__ == "__main__":
-    message = "My"
-    direction = "01100110"
-    binary_message = ''.join(str(ord(char) & 1)for char in direction)
-    print(binary_message)
-    hide_message("test.png", message, directions=direction)  # Replace with your image path
+    message = "My name is piyush"
+    hide_message("test.png", message)  # Replace with your image path
     retrieved_message = retrieve_message("output_test.png")
     print("Retrieved Message:", retrieved_message)
-#hello 
