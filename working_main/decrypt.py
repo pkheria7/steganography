@@ -1,4 +1,4 @@
-from common import mini_directions, get_seeded_neighbors
+from common import get_seeded_neighbors
 
 def tobinary(num):
     if num==0 : return "00"
@@ -13,9 +13,11 @@ def dfs_decryption(x, y, pixels, visited, path, message_extraction,length):
     visited.add((x, y))
     path.append((x, y))
 
-    for (text_x, text_y) in mini_directions:
-        r, g, b = pixels[x + text_x, y + text_y]
-        message_extraction += tobinary(r&3)
+    r, g, b ,a = pixels[x,y]
+    message_extraction += tobinary(r&3)
+    message_extraction += tobinary(g&3)
+    message_extraction += tobinary(b&3)
+    message_extraction += tobinary(a&3)
     for nx, ny in get_seeded_neighbors(x, y, width, height):
         if (nx, ny) not in visited:
             message_extraction = dfs_decryption(nx, ny, pixels, visited, path, message_extraction,length)

@@ -5,11 +5,6 @@ import random
 directions = [(-5, -5), (-5, 0), (-5, 5),
               (0, -5),         (0, 5),
               (5, -5),  (5, 0), (5, 5)]
-
-mini_directions = [(-1, -1), (-1, 0), (-1, 1),
-                   (0, -1),          (0, 1),
-                   (1, -1),  (1, 0), (1, 1)]
-
 def message_to_binary(message):
     return ''.join(format(ord(char), '08b') for char in message) + '11111111'
 
