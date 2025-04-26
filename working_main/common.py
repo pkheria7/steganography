@@ -10,15 +10,6 @@ mini_directions = [(-1, -1), (-1, 0), (-1, 1),
                    (0, -1),          (0, 1),
                    (1, -1),  (1, 0), (1, 1)]
 
-# Password for seeding
-password = ""
-
-def get_password(word):
-    global password
-    password = word
-    return "password set"
-
-
 def message_to_binary(message):
     return ''.join(format(ord(char), '08b') for char in message) + '11111111'
 
@@ -40,7 +31,7 @@ def get_neighbors(x, y, width, height):
     return neighbors
 
 def get_seeded_neighbors(x, y, width, height):
-    from common import password
+    from config import password
     neighbors = get_neighbors(x, y, width, height)
     seed_input = f"{x}-{y}-{password}"
     seed = int(hashlib.sha256(seed_input.encode()).hexdigest(), 16) % (2**32)
