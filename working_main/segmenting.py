@@ -11,9 +11,9 @@ def get_message():
 def divide_message(message, packet_length):
     return [message[i:i + packet_length] for i in range(0, len(message), packet_length)]
 
-def generate_starting_points():
+def generate_starting_points(margin):
     random.seed(17892703)
-    all_points = [(x, y) for x in range(100, 900) for y in range(120, 1400)]
+    all_points = [(x, y) for x in range(margin+10, width - (margin+10)) for y in range(margin +100, height - (margin+10))]
     random.shuffle(all_points)
     return all_points
 
@@ -32,7 +32,7 @@ if __name__ == "__main__":
     depth = packet_length
     get_depth_limit(depth)
 
-    start_points = generate_starting_points()
+    start_points = generate_starting_points(packet_length)
 
     visited = set()
     path = []
