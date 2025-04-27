@@ -1,8 +1,8 @@
 from PIL import Image ,ImageDraw
-from common import message_to_binary, binary_to_message
-from encrypt import dfs_encryption
-from decrypt import dfs_decryption
-from config import get_depth_limit, get_height, get_width, get_password
+from working_main.common import message_to_binary, binary_to_message
+from working_main.encrypt import dfs_encryption
+from working_main.decrypt import dfs_decryption
+from working_main.config import get_depth_limit, get_height, get_width, get_password
 import random
 
 def get_message():

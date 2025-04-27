@@ -37,38 +37,22 @@ def get_seeded_neighbors(x, y, width, height):
     return neighbors
 
 def encode_number(num):
-    if num >= 2000:
-        raise ValueError("Number must be less than 2000")
-    
-    # Get 12-bit binary of the number
-    bin_num = format(num, '012b')  # Always 12 bits
-    
-    # Split into two 6-bit parts
+    bin_num = format(num, '012b')
     first_6 = bin_num[:6]
     second_6 = bin_num[6:]
-    
-    # Add '00' padding before each 6 bits
     encoded = '00' + first_6 + '00' + second_6
-    
-    return encoded  # returns string of 16 bits
+    return encoded 
+
 def decode_number(encoded):
-    if len(encoded) != 16:
-        raise ValueError("Encoded input must be 16 bits")
-    
-    # Extract the two 6-bit parts (after skipping '00')
+
     first_6 = encoded[2:8]
     second_6 = encoded[10:16]
-    
-    # Concatenate the two parts
     full_bin = first_6 + second_6
-    
-    # Convert binary string back to integer
     num = int(full_bin, 2)
-    
     return num
 
 
-def generate_starting_points(width , height ,seedValue,margin=100):
+def generate_starting_points(width , height ,seedValue,margin):
     random.seed(seedValue)
     all_points = [(x, y) for x in range(margin+10, width - (margin+10),67) for y in range(margin +100, height - (margin+10),67)]
     random.shuffle(all_points)
