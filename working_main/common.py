@@ -10,12 +10,14 @@ def message_to_binary(message):
 
 def binary_to_message(mess_convert):
     message = ""
+    flag = False
     for i in range(0, len(mess_convert), 8):
         byte = mess_convert[i:i+8]
         if byte == '11111111':
+            flag = True
             break
         message += chr(int(byte, 2))
-    return message
+    return message, flag
 
 def get_neighbors(x, y, width, height):
     neighbors = []

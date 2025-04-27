@@ -6,9 +6,9 @@ def tobinary(num):
     elif num==2: return "10"
     return "11"
 
-def dfs_decryption(x, y, pixels, visited, path, message_extraction,length):
+def dfs_decryption(x, y, isStart,pixels, visited, path, message_extraction):
     from config import width,height,depth_limit
-    if (x, y) in visited or len(path) >= depth_limit or len(message_extraction)>=length:
+    if ((x, y) in visited and isStart) or len(path) >= depth_limit:
         return message_extraction
     visited.add((x, y))
     path.append((x, y))
@@ -20,6 +20,6 @@ def dfs_decryption(x, y, pixels, visited, path, message_extraction,length):
     message_extraction += tobinary(a&3)
     for nx, ny in get_seeded_neighbors(x, y, width, height):
         if (nx, ny) not in visited:
-            message_extraction = dfs_decryption(nx, ny, pixels, visited, path, message_extraction,length)
+            message_extraction = dfs_decryption(nx, ny, True,pixels, visited, path, message_extraction)
     path.pop()
     return message_extraction
