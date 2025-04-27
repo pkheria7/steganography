@@ -2,9 +2,9 @@ import hashlib
 import random
 
 # Shared directions
-directions = [(-5, -5), (-5, 0), (-5, 5),
-              (0, -5),         (0, 5),
-              (5, -5),  (5, 0), (5, 5)]
+directions = [(-3, -3), (-3, 0), (-3, 3),
+              (0, -3),         (0, 3),
+              (3, -3),  (3, 0), (3, 3)]
 def message_to_binary(message):
     return ''.join(format(ord(char), '08b') for char in message) + '11111111'
 
