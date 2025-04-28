@@ -45,7 +45,7 @@ if __name__ == "__main__":
     if len(word) >15:
         word = word[:15]
 
-    prime = int(input("choose one 19 or 23 :\n"))
+    prime = int(input("choose one 19 or 23 or 29:\n"))
     get_depth_limit(prime)
     randomise_it = int(input("toggle value (enter a value less than 2000): \n"))
     while True:
