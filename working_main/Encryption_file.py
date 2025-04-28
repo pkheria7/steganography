@@ -31,7 +31,7 @@ def get_message():
     return input("Enter your Secret Message :\n")
 
 if __name__ == "__main__":
-    img = Image.open("/Users/piyushkheria/Desktop/steganography/test.png").convert("RGBA")
+    img = Image.open("image.png").convert("RGBA")
     width, height = img.size
     get_width(width)
     get_height(height)
