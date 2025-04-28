@@ -60,7 +60,7 @@ if __name__ == "__main__":
         message_from_decryption = result.stdout.strip()
         print("random :",randomise_it)
         print("output message :", message_from_decryption)
-        if message == message_from_decryption:
+        if message == message_from_decryption.strip():
             print("Your Password :",binary_to_hex(My_password))
             break
         else :
