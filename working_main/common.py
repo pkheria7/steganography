@@ -1,5 +1,6 @@
 import hashlib
 import random
+import base64
 
 # Shared directions
 directions = [(-3, -3), (-3, 0), (-3, 3),
@@ -57,3 +58,15 @@ def generate_starting_points(width , height ,seedValue,margin):
     all_points = [(x, y) for x in range(margin+10, width - (margin+10),67) for y in range(margin +100, height - (margin+10),67)]
     random.shuffle(all_points)
     return all_points
+
+def binary_to_hex(binary_string):
+    """Compress a 256-bit binary string into ~43-44 character Base64 string."""
+    byte_data = int(binary_string, 2).to_bytes(32, byteorder='big')  # 256 bits = 32 bytes
+    encoded = base64.urlsafe_b64encode(byte_data).decode('utf-8')
+    return encoded.rstrip('=')  # Remove padding '=' to make it even shorter
+
+def hex_to_binary(encoded_string):
+    """Expand the Base64 encoded short password back into 256-bit binary string."""
+    padded = encoded_string + '=' * (-len(encoded_string) % 4)  # Add padding back
+    byte_data = base64.urlsafe_b64decode(padded)
+    return bin(int.from_bytes(byte_data, byteorder='big'))[2:].zfill(256)
