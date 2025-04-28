@@ -2,7 +2,7 @@ from PIL import Image ,ImageDraw
 from common import message_to_binary,encode_number ,generate_starting_points , binary_to_hex
 from main_encrypt import dfs_encryption
 from config import get_depth_limit, get_height, get_width, get_password
-import random
+import subprocess
 
 def encrptying(start_points):
     pixels = img.load()
@@ -27,11 +27,14 @@ def encrptying(start_points):
 
     img.save("output.png")
 def get_message():
-    return input("Enter your Secret Message :\n")
+    global message
+    message = input("Enter your Secret Message :\n")
+    return message
 
 if __name__ == "__main__":
     img = Image.open("image.png").convert("RGBA")
     width, height = img.size
+    message = ""
     get_width(width)
     get_height(height)
     word = input("Enter a word (must not be more than 10 letters):\n")
@@ -45,10 +48,20 @@ if __name__ == "__main__":
     prime = int(input("choose one 19 or 23 :\n"))
     get_depth_limit(prime)
     randomise_it = int(input("toggle value (enter a value less than 2000): \n"))
-    start_points = generate_starting_points(width,height,randomise_it,50)
-    start = start_points[0]
+    while True:
+        start_points = generate_starting_points(width,height,randomise_it,50)
+        start = start_points[0]
 
-    My_password = encode_number(width) + encode_number(height)+ encode_number(prime)+ encode_number(start[0]) + encode_number(start[1])+ encode_number(randomise_it)+ message_to_binary(word)+"11111111111111111111111111111111"
+        My_password = encode_number(width) + encode_number(height)+ encode_number(prime)+ encode_number(start[0]) + encode_number(start[1])+ encode_number(randomise_it)+ message_to_binary(word)+"11111111111111111111111111111111"
 
-    encrptying(start_points)
-    print("Your Password :",binary_to_hex(My_password))
+        encrptying(start_points)
+        print("message is :",message)
+        result = subprocess.run(["python", "Decryption_file.py", binary_to_hex(My_password)], capture_output=True, text=True)
+        message_from_decryption = result.stdout.strip()
+        print("random :",randomise_it)
+        print("output message :", message_from_decryption)
+        if message == message_from_decryption:
+            print("Your Password :",binary_to_hex(My_password))
+            break
+        else :
+            randomise_it += 1

@@ -3,6 +3,7 @@ from common import binary_to_message, decode_number , generate_starting_points ,
 from main_decrypt import dfs_decryption
 from config import get_depth_limit, get_height, get_width, get_password
 import random
+import sys
 
 def get_info(binary_message):
     return_lst = []
@@ -12,7 +13,7 @@ def get_info(binary_message):
     return return_lst
 
 
-def decrypting(starting_x, starting_y):
+def decrypting(img,starting_x, starting_y):
     start_x, start_y = starting_x,starting_y
     pixels = img.load()
     visited = set()
@@ -42,11 +43,14 @@ if __name__ == "__main__":
     width, height = img.size
     get_width(width)
     get_height(height)
-    entry = input("Enter the password :\n")
+    if len(sys.argv) > 1:
+        entry = sys.argv[1]
+    else:
+        entry = input("Enter the password:\n")
     info = get_info(hex_to_binary(entry))
     check_point = get_password(info[6][0].rstrip('@'))
     get_depth_limit((int)(info[2]))
     start_points = generate_starting_points(width,height,(int)(info[5]),50)
     random.shuffle(start_points)
-    answer = decrypting((int)(info[3]) , (int)(info[4]))
+    answer = decrypting(img,(int)(info[3]) , (int)(info[4]))
     print(answer)
