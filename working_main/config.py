@@ -1,8 +1,7 @@
 width=0
 height=0
-depth_limit=300
+depth_limit=23
 password = ""
-
 def get_password(word):
     global password
     password = word

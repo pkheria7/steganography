@@ -55,7 +55,7 @@ def decode_number(encoded):
 
 def generate_starting_points(width , height ,seedValue,margin):
     random.seed(seedValue)
-    all_points = [(x, y) for x in range(margin+10, width - (margin+10),67) for y in range(margin +100, height - (margin+10),67)]
+    all_points = [(x, y) for x in range(margin+10, width - (margin+50),61) for y in range(margin +10, height - (margin+50),61)]
     random.shuffle(all_points)
     return all_points
 

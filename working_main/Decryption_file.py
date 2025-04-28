@@ -38,7 +38,7 @@ def decrypting(starting_x, starting_y):
 
 
 if __name__ == "__main__":
-    img = Image.open("graph_based_hashing.png").convert("RGBA")
+    img = Image.open("output.png").convert("RGBA")
     width, height = img.size
     get_width(width)
     get_height(height)

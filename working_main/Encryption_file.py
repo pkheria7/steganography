@@ -25,8 +25,7 @@ def encrptying(start_points):
             break
         i+=1
 
-    img.save("graph_based_hashing.png")
-
+    img.save("output.png")
 def get_message():
     return input("Enter your Secret Message :\n")
 
