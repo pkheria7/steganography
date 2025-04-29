@@ -63,10 +63,10 @@ def binary_to_hex(binary_string):
     """Compress a 256-bit binary string into ~43-44 character Base64 string."""
     byte_data = int(binary_string, 2).to_bytes(32, byteorder='big')  # 256 bits = 32 bytes
     encoded = base64.urlsafe_b64encode(byte_data).decode('utf-8')
-    return encoded.rstrip('=')  # Remove padding '=' to make it even shorter
+    return encoded  # Remove padding '=' to make it even shorter
 
 def hex_to_binary(encoded_string):
     """Expand the Base64 encoded short password back into 256-bit binary string."""
-    padded = encoded_string + '=' * (-len(encoded_string) % 4)  # Add padding back
+    padded = encoded_string
     byte_data = base64.urlsafe_b64decode(padded)
     return bin(int.from_bytes(byte_data, byteorder='big'))[2:].zfill(256)

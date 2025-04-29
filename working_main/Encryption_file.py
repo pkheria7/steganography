@@ -4,9 +4,8 @@ from main_encrypt import dfs_encryption
 from config import get_depth_limit, get_height, get_width, get_password
 import subprocess
 
-def encrptying(start_points):
+def encrptying(start_points, message):
     pixels = img.load()
-    message = get_message()
     print("Message Length",len(message))
     visited = set()
     for coordinate in start_points:
@@ -48,18 +47,16 @@ if __name__ == "__main__":
     prime = int(input("choose one 19 or 23 or 29:\n"))
     get_depth_limit(prime)
     randomise_it = int(input("toggle value (enter a value less than 2000): \n"))
+    message = get_message()
     while True:
         start_points = generate_starting_points(width,height,randomise_it,50)
         start = start_points[0]
 
         My_password = encode_number(width) + encode_number(height)+ encode_number(prime)+ encode_number(start[0]) + encode_number(start[1])+ encode_number(randomise_it)+ message_to_binary(word)+"11111111111111111111111111111111"
 
-        encrptying(start_points)
-        print("message is :",message)
+        encrptying(start_points, message)
         result = subprocess.run(["python", "Decryption_file.py", binary_to_hex(My_password)], capture_output=True, text=True)
         message_from_decryption = result.stdout.strip()
-        print("random :",randomise_it)
-        print("output message :", message_from_decryption)
         if message == message_from_decryption.strip():
             print("Your Password :",binary_to_hex(My_password))
             break
